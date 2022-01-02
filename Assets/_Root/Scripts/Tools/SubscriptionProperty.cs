@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace _Root.Scripts.Tools
 {
@@ -12,7 +13,7 @@ namespace _Root.Scripts.Tools
             get => _value;
             set
             {
-                _value = Value;
+                _value = value;
                 _onChangeValue?.Invoke(_value);
             }
         }

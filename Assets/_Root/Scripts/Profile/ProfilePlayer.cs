@@ -1,4 +1,4 @@
-using _Root.Scripts.Car;
+using _Root.Scripts.Transport;
 using _Root.Scripts.Tools;
 
 namespace _Root.Scripts.Profile
@@ -6,16 +6,16 @@ namespace _Root.Scripts.Profile
     internal class ProfilePlayer
     {
         public readonly SubscriptionProperty<GameState> State;
-        public readonly CarModel CarModel;
+        public readonly TransportModel TransportModel;
+        public readonly TransportType TransportType;
 
-        public ProfilePlayer(GameState state, float speed)
+        public ProfilePlayer(GameState initialState, TransportType transportType, float speed)
         {
-            State = new SubscriptionProperty<GameState>
-            {
-                Value = state
-            };
+            State = new SubscriptionProperty<GameState>();
+            State.Value = initialState;
 
-            CarModel = new CarModel(speed);
+            TransportType = transportType;
+            TransportModel = new TransportModel(speed);
         }
     }
 }

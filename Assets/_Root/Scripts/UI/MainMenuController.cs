@@ -7,7 +7,7 @@ namespace _Root.Scripts.UI
 {
     internal class MainMenuController : BaseController
     {
-        private readonly ResourcePath _viewPath = new ResourcePath("Prefabs/mainMenu");
+        private readonly ResourcePath _viewPath = new ResourcePath("Prefabs/UI/MainMenu");
         private readonly ProfilePlayer _profilePlayer;
         private readonly MainMenuView _view;
         
@@ -15,7 +15,7 @@ namespace _Root.Scripts.UI
         {
             _profilePlayer = profilePlayer;
             _view = LoadView(placeForUi);
-            _view.Init(StartGame);
+            _view.Init(StartGame, BackToMenu);
         }
 
         private MainMenuView LoadView(Transform placeForUi)
@@ -27,7 +27,14 @@ namespace _Root.Scripts.UI
             return objectView.GetComponent<MainMenuView>();
         }
 
-        private void StartGame() => _profilePlayer.State.Value = GameState.Game;
-        
+        private void StartGame()
+        {
+            _profilePlayer.State.Value = GameState.Game;
+        }
+
+        private void BackToMenu()
+        {
+            _profilePlayer.State.Value = GameState.Settings;
+        }
     }
 }

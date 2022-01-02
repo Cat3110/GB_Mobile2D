@@ -1,4 +1,4 @@
-using _Root.Scripts.Car;
+using _Root.Scripts.Transport;
 using _Root.Scripts.Profile;
 using _Root.Scripts.Tools;
 
@@ -8,8 +8,22 @@ namespace _Root.Scripts.Game
     {
         public GameController(ProfilePlayer profilePlayer)
         {
-            var carController = new CarController();
-            AddController(carController);
+            TransportController transportController;
+            
+            switch (profilePlayer.TransportType)
+            {
+                case TransportType.Boat:
+                    transportController = new BoatController();
+                    break;
+                case TransportType.Car:
+                    transportController = new CarController();
+                    break;
+                default:
+                    transportController = new CarController();
+                    break;
+            }
+
+            AddController(transportController);
         }
     }
 }

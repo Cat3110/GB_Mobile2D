@@ -60,7 +60,7 @@ namespace _Root.Scripts
 
         protected virtual void OnDispose()
         {
-      
+            Dispose();
         }
     }
 }

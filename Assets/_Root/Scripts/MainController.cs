@@ -12,6 +12,7 @@ namespace _Root.Scripts
 
         private MainMenuController _mainMenuController;
         private GameController _gameController;
+        private SettingsMenuController _settingsMenuController;
 
         public MainController(Transform placeForUI, ProfilePlayer profilePlayer)
         {
@@ -28,14 +29,23 @@ namespace _Root.Scripts
             {
                 case GameState.Game:
                     _mainMenuController?.Dispose();
+                    _settingsMenuController?.Dispose();
                     _gameController = new GameController(_profilePlayer);
                     break;
-                case GameState.Start:
+                case GameState.MainMenu:
                     _gameController?.Dispose();
+                    _settingsMenuController?.Dispose();
                     _mainMenuController = new MainMenuController(_placeForUI, _profilePlayer);
                     break;
+                case GameState.Settings:
+                    _gameController?.Dispose();
+                    _mainMenuController?.Dispose();
+                    _settingsMenuController = new SettingsMenuController(_placeForUI, _profilePlayer);
+                    break;  
                 default:
                     _mainMenuController?.Dispose();
+                    _settingsMenuController?.Dispose();
+                    _gameController?.Dispose();
                     break;
             }
         }
@@ -43,6 +53,10 @@ namespace _Root.Scripts
         protected override void OnDispose()
         {
             base.OnDispose();
+            
+            _mainMenuController?.Dispose();
+            _gameController?.Dispose();
+            
             _profilePlayer.State.UnsubscribeOnChange(OnChangeGameState);
         }
     }
